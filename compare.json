@@ -1,0 +1,16 @@
+ {
+    "langage": [
+        "Python",
+        "Js",
+        "C",
+        "Cpp"
+    ],
+    "framework": [
+        "Vue",
+        "Fastapi"
+    ],
+    "type": [
+        "db",
+        "web"
+    ]
+ }

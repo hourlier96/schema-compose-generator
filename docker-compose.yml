@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+    fastapi:
+        
+        build:
+            ./Back
+        image: toto
+        ports:
+            - 5051:8000
+        volumes:
+            - /home/hourli_a/.ssh/:/home/hourli_a/.ssh/
+
+    vue-js:
+        build:
+            ./Front
+        ports:
+            - 5050:8080
+        volumes:
+            - ./Front/app/src:/app/src
+            - ./Front/app/public:/app/public
+            - ./Front/app/node_modules:/app/src/node_modules
+        command: npm run serve
+    
+    db:
+        build:
+            ./Front
+        ports:
+            - 5050:8080
+        volumes:
+            - ./Front/app/src:/app/src
+            - ./Front/app/public:/app/public
+            - ./Front/app/node_modules:/app/src/node_modules
+        command: npm run serve
