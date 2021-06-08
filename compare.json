@@ -2,15 +2,18 @@
     "langage": [
         "Python",
         "Js",
-        "C",
-        "Cpp"
+        "Cpp",
+        "Mysql",
+        "Mongodb",
+        "Php",
+        "SQL"
     ],
     "framework": [
         "Vue",
         "Fastapi"
     ],
     "type": [
-        "db",
+        "Database",
         "web"
     ]
  }
