@@ -4,7 +4,7 @@ services:
         
         build:
             ./Back
-        image: toto
+        image: testweb
         ports:
             - 5051:8000
         volumes:
@@ -31,3 +31,5 @@ services:
             - ./Front/app/public:/app/public
             - ./Front/app/node_modules:/app/src/node_modules
         command: npm run serve
+        depends_on:
+            fastapi
