@@ -36,17 +36,18 @@ def find_pattern_in_sub_key(service, sub_key, compare):
 
 
 def match_other_data(service, serviceData):
-    MATCH_DATA[service]['ports'] = serviceData['ports']
-    if 'networks' in serviceData:
-        MATCH_DATA[service]['networks'] = serviceData['networks']
-    if 'restart' in serviceData:
-        MATCH_DATA[service]['restart'] = serviceData['restart']
+    if 'ports' in serviceData:
+        MATCH_DATA[service]['ports'] = serviceData['ports']
+    # if 'networks' in serviceData:
+    #     MATCH_DATA[service]['networks'] = serviceData['networks']
+    # if 'restart' in serviceData:
+    #     MATCH_DATA[service]['restart'] = serviceData['restart']
     if 'depends_on' in serviceData:
         MATCH_DATA[service]['depends_on'] = serviceData['depends_on']
-    if 'volumes' in serviceData:
-        MATCH_DATA[service]['volumes'] = serviceData['volumes']
-    if 'command' in serviceData:
-        MATCH_DATA[service]['command'] = serviceData['command']
+    # if 'volumes' in serviceData:
+    #     MATCH_DATA[service]['volumes'] = serviceData['volumes']
+    # if 'command' in serviceData:
+    #     MATCH_DATA[service]['command'] = serviceData['command']
 
 
 def iter_match():

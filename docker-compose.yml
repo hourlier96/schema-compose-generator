@@ -1,35 +1,87 @@
-version: '3.3'
+version: '3.5'
 services:
-    fastapi:
-        
-        build:
-            ./Back
-        image: testweb
+    mysql:
+        container_name: reucopro_mysql
+        restart: always
+        build: ./mysql
         ports:
-            - 5051:8000
+            - '3306'
+        expose:
+            - '3306'
         volumes:
-            - /home/hourli_a/.ssh/:/home/hourli_a/.ssh/
-
+            - './mysql/init:/docker-entrypoint-initdb.d'
+            - 'mysql:/var/lib/mysql'
+        networks:
+            - traefik_network
+    phpmyadmin:
+        container_name: reucopro_phpmyadmin
+        build: ./phpmyadmin
+        restart: always
+        ports:
+            - 8080:80
+        links:
+            - mysql:db
+        volumes:
+            - 'phpmyadmin_data:/phpmyadmin'
+        networks:
+            - traefik_network
     vue-js:
-        build:
-            ./Front
+        container_name: reucopro_front
+        restart: always
         ports:
             - 5050:8080
         volumes:
-            - ./Front/app/src:/app/src
-            - ./Front/app/public:/app/public
-            - ./Front/app/node_modules:/app/src/node_modules
-        command: npm run serve
-    
-    db:
-        build:
-            ./Front
+            - ./front/app/src:/app/src
+            - ./front/app/public:/app/public
+            - ./front/app/node_modules:/app/src/node_modules
+        networks:
+            - traefik_network
+    php:
+        container_name: reucopro_php
+        restart: always
+        build: ./php
         ports:
-            - 5050:8080
+            - "9000:9001"
         volumes:
-            - ./Front/app/src:/app/src
-            - ./Front/app/public:/app/public
-            - ./Front/app/node_modules:/app/src/node_modules
-        command: npm run serve
+            - './api_bo:/var/www/api_bo'
+        networks:
+            - traefik_network
+    nginx:
+        container_name: reucopro_nginx
+        restart: always
         depends_on:
-            fastapi
+            - php
+        volumes:
+            - './api_bo:/var/www/api_bo'
+        links:
+          - php
+        networks:
+            - traefik_network
+    mercure:
+        container_name: reucopro_mercure
+        restart: always
+        image: dunglas/mercure:latest
+        environment:
+            SERVER_NAME: ':80'
+            MERCURE_PUBLISHER_JWT_KEY: '!ChangeMe!'
+            MERCURE_SUBSCRIBER_JWT_KEY: '!ChangeMe!'
+        volumes:
+            - caddy_data:/data
+            - caddy_config:/config
+        networks:
+            - traefik_network
+    traefik:
+        container_name: reucopro_traefik
+        image: traefik:2.2
+        command: --docker --docker.exposedbydefault=false
+        restart: always
+        networks:
+            - traefik_network
+volumes:
+    mysql:
+    phpmyadmin_data:
+    caddy_data:
+    caddy_config:
+
+networks:
+    traefik_network:
