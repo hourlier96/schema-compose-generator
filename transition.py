@@ -4,6 +4,7 @@ import json
 
 from generator import *
 
+
 def get_file_name():
     parser = argparse.ArgumentParser()
     parser.add_argument('dc', help="The docker-compose.yml file", type=argparse.FileType('r'))
@@ -11,10 +12,12 @@ def get_file_name():
     open_file = args.dc
     return open_file.name
 
+
 def get_parsing_output():
     out = subprocess.check_output(["python", "parsing.py", get_file_name()])
     decoded_output = out.decode()
     return decoded_output
+
 
 def run_diag_generation(parsed_yaml):
     print(json.dumps(parsed_yaml, indent=4))
@@ -42,7 +45,7 @@ def run_diag_generation(parsed_yaml):
 
     print(output.output)
     print(elems)
-    
+
     for key, value in parsed_yaml.items():
         for link in value['communicate']:
             output.create_link(elems[key], elems[link])

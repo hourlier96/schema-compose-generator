@@ -1,7 +1,6 @@
 import argparse
 import json
 import os
-import re
 import yaml
 
 MATCH_DATA = {}
@@ -31,7 +30,7 @@ def find_pattern_in_service(service, compare):
         for item in data:
             if item.lower() in service.lower():
                 MATCH_DATA[service][key] = item
-                #print('Pattern found on service', service, ':', item, 'in', key)
+                # print('Pattern found on service', service, ':', item, 'in', key)
 
 
 def set_links(service, x_communication):
@@ -42,7 +41,7 @@ def set_links(service, x_communication):
     for link in x_communication:
         elems = link.split('>>')
         if elems[0].replace(' ', '') == service:
-             MATCH_DATA[service]['communicate'].append(elems[1].replace(' ', ''))
+            MATCH_DATA[service]['communicate'].append(elems[1].replace(' ', ''))
 
 
 def find_pattern_in_sub_key(service, sub_key, compare):
@@ -53,19 +52,19 @@ def find_pattern_in_sub_key(service, sub_key, compare):
         for item in data:
             if item.lower() in sub_key.lower():
                 MATCH_DATA[service][key] = item
-                #print('Pattern found on sub_key', sub_key, ':', item, 'in', key)
+                # print('Pattern found on sub_key', sub_key, ':', item, 'in', key)
 
 
-def match_other_data(service, serviceData):
+def match_other_data(service, service_data):
     """
     Complementary informations set in output
     """
-    if 'ports' in serviceData:
-        MATCH_DATA[service]['ports'] = serviceData['ports']
-    if 'networks' in serviceData:
-        MATCH_DATA[service]['networks'] = serviceData['networks']
-    if 'depends_on' in serviceData:
-        MATCH_DATA[service]['depends_on'] = serviceData['depends_on']
+    if 'ports' in service_data:
+        MATCH_DATA[service]['ports'] = service_data['ports']
+    if 'networks' in service_data:
+        MATCH_DATA[service]['networks'] = service_data['networks']
+    if 'depends_on' in service_data:
+        MATCH_DATA[service]['depends_on'] = service_data['depends_on']
     # if 'restart' in serviceData:
     #     MATCH_DATA[service]['restart'] = serviceData['restart']
     # if 'volumes' in serviceData:
@@ -74,31 +73,31 @@ def match_other_data(service, serviceData):
     #     MATCH_DATA[service]['command'] = serviceData['command']
 
 
-def build_match_data(yamldict):
+def build_match_data(yamldict_in):
     """
     Compare parsed docker-compose with compare.json dictionnary
     representing multiple class from diagram
     """
     with open('compare.json') as f:
         compare = json.loads(f.read())
-        if 'services' in yamldict:
+        if 'services' in yamldict_in:
             # print('Starting matching services...')
             # Problem: if mutiple match, it replace previous one
-            for service in yamldict['services']:
+            for service in yamldict_in['services']:
                 # Find match from service name
                 find_pattern_in_service(service, compare)
 
-                set_links(service, yamldict['x-communication'])
+                set_links(service, yamldict_in['x-communication'])
 
                 # In each service, find match from image name if exists
-                if 'image' in yamldict['services'][service]:
-                    find_pattern_in_sub_key(service, yamldict['services'][service]['image'], compare)
+                if 'image' in yamldict_in['services'][service]:
+                    find_pattern_in_sub_key(service, yamldict_in['services'][service]['image'], compare)
 
                 # In each service, find match from container name if exists
-                if 'container_name' in yamldict['services'][service]:
-                    find_pattern_in_sub_key(service, yamldict['services'][service]['container_name'], compare)
+                if 'container_name' in yamldict_in['services'][service]:
+                    find_pattern_in_sub_key(service, yamldict_in['services'][service]['container_name'], compare)
 
-                match_other_data(service, yamldict['services'][service])
+                match_other_data(service, yamldict_in['services'][service])
 
     # Output used by other script
     print(json.dumps(MATCH_DATA, indent=4))
