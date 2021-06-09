@@ -80,17 +80,12 @@ def build_match_data(yamldict):
                 if 'image' in yamldict['services'][service]:
                     find_pattern_in_sub_key(service, yamldict['services'][service]['image'], compare)
 
-<<<<<<< HEAD
                 # In each service, find match from container name if exists
-=======
-                # In each service, fidn match from image name if exists
->>>>>>> 6588883 (fix: should rework if__name.. in order to avoid Shadows name...)
                 if 'container_name' in yamldict['services'][service]:
                     find_pattern_in_sub_key(service, yamldict['services'][service]['container_name'], compare)
 
                 match_other_data(service, yamldict['services'][service])
 
-<<<<<<< HEAD
     print(json.dumps(MATCH_DATA, indent=4))
 
 
@@ -98,6 +93,3 @@ if __name__ == "__main__":
     args = main()
     yamldict = as_json(args.filename[0])
     build_match_data(yamldict)
-=======
-    iter_match()
->>>>>>> 6588883 (fix: should rework if__name.. in order to avoid Shadows name...)
