@@ -92,4 +92,8 @@ volumes:
     caddy_config:
 
 networks:
+<<<<<<< HEAD
     traefik_network:
+=======
+    traefik_network:
+>>>>>>> 6688638 (Add complete docker-compose + remove not used keys)
