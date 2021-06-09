@@ -38,7 +38,7 @@ def run_diag_generation(parsed_yaml):
             elem = value['langage']
 
         if elem is not None:
-            output.create_element(elem)
+            output.create_element(service_name=key, element_name=elem)
             elems[key] = elem
         else:
             elems[key] = "N/A"
@@ -48,7 +48,7 @@ def run_diag_generation(parsed_yaml):
 
     for key, value in parsed_yaml.items():
         for link in value['communicate']:
-            output.create_link(elems[key], elems[link])
+            output.create_link(key, link)
 
     with open("output.py", "r+")as f:
         f.write(output.output)
