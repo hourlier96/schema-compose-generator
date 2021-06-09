@@ -53,20 +53,20 @@
         "Inspection"
     ],
     "service": [
-        "mercure",
-        "traefik",
-        "nginx",
-        "phpmyadmin",
-        "mysql",
-        "aws",
-        "azure",
-        "elastic",
-        "firebase",
-        "generic",
-        "gcp",
-        "ibm",
-        "k8s",
-        "oci",
-        "openstack"
+        "Mercure",
+        "Traefik",
+        "Nginx",
+        "Phpmyadmin",
+        "Mysql",
+        "Aws",
+        "Azure",
+        "Elastic",
+        "Firebase",
+        "Generic",
+        "Gcp",
+        "Ibm",
+        "K8s",
+        "Oci",
+        "Openstack"
     ]
  }
