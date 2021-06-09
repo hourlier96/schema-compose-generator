@@ -68,7 +68,7 @@ def build_match_data(yamldict):
     with open('compare.json') as f:
         compare = json.loads(f.read())
         if 'services' in yamldict:
-            print('Starting matching services...')
+            # print('Starting matching services...')
             # Problem: if mutiple match, it replace previous one
             for service in yamldict['services']:
                 # Find match from service name
@@ -87,6 +87,7 @@ def build_match_data(yamldict):
                 match_other_data(service, yamldict['services'][service])
 
     print(json.dumps(MATCH_DATA, indent=4))
+    return json.dumps(MATCH_DATA, indent=4)
 
 
 if __name__ == "__main__":
