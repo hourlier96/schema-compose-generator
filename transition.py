@@ -10,22 +10,13 @@ def get_file_name():
     open_file = args.dc
 
     return open_file.name
-    # subprocess.call('python', 'parsing.py', open_file.name)
-
 
 def get_parsing_output():
     print("parsing_output")
-    # get_file_name()
-    # proc = subprocess.Popen(['python', 'parsing.py', get_file_name()])
-    # print(f"Before COMMUNICATE \n {proc.communicate()[0]} \n AFTER COMMUNICATE")
-
+    
     out = subprocess.check_output(["python", "parsing.py", get_file_name()])
     decoded_output = out.decode()
-    print(f"Before OUTPUT \n {decoded_output} \n AFTER OUTPUT")
 
-
-    # json = proc.communicate()[0]
-    # print(f"Before JSON \n {json} \n AFTER JSON")
     return decoded_output
 
 def run_diag_generation():
@@ -35,8 +26,11 @@ def main():
     tab = json.loads(get_parsing_output())
 
     for key, value in tab.items():
-        if None != tab:
-            print(f"{key}, {value}")
+        # print(f"{key}, {value}")
+        # print(f"{value}")
+        values = value["communicate"]
+        print(f"{key} -> {values}")
+        # for subKey, subValue in value.items():
 
     run_diag_generation()
     print("main")
