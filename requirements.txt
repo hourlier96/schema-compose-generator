@@ -1,0 +1,5 @@
+diagrams==0.20.0
+graphviz==0.16
+Jinja2==2.11.3
+MarkupSafe==2.0.1
+PyYAML==5.4.1
