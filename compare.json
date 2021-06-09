@@ -1,19 +1,70 @@
- {
+{
     "langage": [
         "Python",
-        "Js",
         "Cpp",
         "Mysql",
         "Mongodb",
         "Php",
-        "SQL"
+        "Bash",
+        "Csharp",
+        "Dart",
+        "Elixir",
+        "Erlang",
+        "Go",
+        "Java",
+        "Javascript",
+        "Kotlin",
+        "Matlab",
+        "SQL",
+        "Nodejs",
+        "Ruby",
+        "Rust",
+        "Scala",
+        "Swift",
+        "Typescript"
     ],
     "framework": [
         "Vue",
-        "Fastapi"
+        "Fastapi",
+        "Angular",
+        "Backbone",
+        "Django",
+        "Ember",
+        "Flask",
+        "Flutter",
+        "Laravel",
+        "Micronaut",
+        "Rails",
+        "React",
+        "Spring"
     ],
     "type": [
         "Database",
-        "web"
+        "Webserver",
+        "Action",
+        "Collate",
+        "Decision",
+        "Delay",
+        "Display",
+        "Document",
+        "InputOutput",
+        "Inspection"
+    ],
+    "service": [
+        "Mercure",
+        "Traefik",
+        "Nginx",
+        "Phpmyadmin",
+        "Mysql",
+        "Aws",
+        "Azure",
+        "Elastic",
+        "Firebase",
+        "Generic",
+        "Gcp",
+        "Ibm",
+        "K8s",
+        "Oci",
+        "Openstack"
     ]
  }
