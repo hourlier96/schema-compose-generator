@@ -1,0 +1,19 @@
+ {
+    "langage": [
+        "Python",
+        "Js",
+        "Cpp",
+        "Mysql",
+        "Mongodb",
+        "Php",
+        "SQL"
+    ],
+    "framework": [
+        "Vue",
+        "Fastapi"
+    ],
+    "type": [
+        "Database",
+        "web"
+    ]
+ }
