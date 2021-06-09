@@ -51,10 +51,8 @@
         "Inspection"
     ],
     "service": [
-        "Mercure",
         "Traefik",
         "Nginx",
-        "Phpmyadmin",
         "Mysql",
         "Aws",
         "Azure",

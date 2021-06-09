@@ -6,6 +6,14 @@ To parse docker-compose, and find matching pattern from compare.json
 python3 parsing.py docker-compose.yml
 ```
 
+<br/>
+
+To generate diagram from docker-compose
+
+```bash
+python3 transition.py docker-compose.yml
+```
+
 
 ### Description
 

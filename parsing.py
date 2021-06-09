@@ -15,13 +15,17 @@ def main():
 
 
 def as_json(filename):
+    """
+    Transform docker-compose as Python dict
+    """
     file = yaml.Loader(open(os.getcwd() + '/' + filename).read())
     return file.get_single_data()
 
 
-
-
 def find_pattern_in_service(service, compare):
+    """
+    Search corresponding element in diagram from service name
+    """
     MATCH_DATA[service] = {}
     for key, data in compare.items():
         for item in data:
@@ -42,6 +46,9 @@ def set_links(service, x_communication):
 
 
 def find_pattern_in_sub_key(service, sub_key, compare):
+    """
+    Search corresponding element in diagram from other service key
+    """
     for key, data in compare.items():
         for item in data:
             if item.lower() in sub_key.lower():
@@ -50,6 +57,9 @@ def find_pattern_in_sub_key(service, sub_key, compare):
 
 
 def match_other_data(service, serviceData):
+    """
+    Complementary informations set in output
+    """
     if 'ports' in serviceData:
         MATCH_DATA[service]['ports'] = serviceData['ports']
     if 'networks' in serviceData:
@@ -65,6 +75,10 @@ def match_other_data(service, serviceData):
 
 
 def build_match_data(yamldict):
+    """
+    Compare parsed docker-compose with compare.json dictionnary
+    representing multiple class from diagram
+    """
     with open('compare.json') as f:
         compare = json.loads(f.read())
         if 'services' in yamldict:
@@ -86,8 +100,8 @@ def build_match_data(yamldict):
 
                 match_other_data(service, yamldict['services'][service])
 
+    # Output used by other script
     print(json.dumps(MATCH_DATA, indent=4))
-    return json.dumps(MATCH_DATA, indent=4)
 
 
 if __name__ == "__main__":
