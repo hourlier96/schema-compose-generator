@@ -24,9 +24,9 @@ class Generator:
         self.output += f"{_clust}\n"
         self.lvl += 1
 
-    def create_element(self, element_name):
-        _element = f'elem_{element_name.lower()} = {element_name}("{element_name}")\n'
-        self.list_element.append(element_name.lower())
+    def create_element(self,  service_name=None, element_name=None):
+        _element = f'elem_{service_name.lower().replace("-","_")} = {element_name}("{service_name}")\n'
+        self.list_element.append(service_name)
         for _ in range(self.lvl): self.output += "\t"
         self.output += f'{_element}\n'
 
