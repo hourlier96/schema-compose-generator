@@ -35,4 +35,5 @@ with Diagram("Docker-compose diagram", show=False):
 		elem_traefik = Traefik("traefik")
 
 	elem_phpmyadmin >> elem_mysql
+	elem_vue_js >> elem_php
 	elem_php >> elem_mysql

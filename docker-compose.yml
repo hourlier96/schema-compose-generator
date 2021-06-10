@@ -5,6 +5,7 @@ x-communication:
     - php >> mercure
     - php >> mysql
     - phpmyadmin >> mysql
+    - vue-js >> php
 
 version: '3.5'
 services:

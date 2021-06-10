@@ -32,4 +32,4 @@ class Generator:
 
     def create_link(self, ele1, ele2):
         if ele1.lower() in self.list_element and ele2.lower() in self.list_element:
-            self.output += f'\telem_{ele1.lower()} >> elem_{ele2.lower()}\n'
+            self.output += f'\telem_{ele1.lower().replace("-","_")} >> elem_{ele2.lower()}\n'
