@@ -50,7 +50,8 @@ def run_diag_generation(parsed_yaml):
         for link in value['communicate']:
             output.create_link(key, link)
 
-    with open("output.py", "r+")as f:
+    with open("output.py", "a+")as f:
+        f.truncate(0)
         f.write(output.output)
 
     subprocess.check_output(["python", "output.py"])
