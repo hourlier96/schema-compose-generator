@@ -40,6 +40,9 @@
   ],
   "type": [
     "Database",
+    "Endpoints",
+    "SecurityHub",
+    "API",
     "Webserver",
     "Action",
     "Collate",
@@ -51,7 +54,6 @@
     "Inspection"
   ],
   "service": [
-    "Traefik",
     "Nginx",
     "Mysql",
     "Aws",
@@ -64,5 +66,9 @@
     "K8s",
     "Oci",
     "Openstack"
+  ],
+  "entrypoints": [
+    "Traefik",
+    "Kong"
   ]
 }

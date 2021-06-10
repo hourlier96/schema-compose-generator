@@ -23,9 +23,18 @@ def run_diag_generation(parsed_yaml):
     print(json.dumps(parsed_yaml, indent=4))
     output = Generator()
     output.create_diag("Docker-compose diagram")
-    output.create_cluster("Network")
 
     elems = {}
+    # Creation entrypoint (1 seul)
+    for key, value in parsed_yaml.items():
+        print("in", key, value)
+        if "entrypoints" in value:
+            output.create_cluster("Entrypoint")
+            output.create_element(service_name=key, element_name=value['entrypoints'])
+            output.create_cluster(value['entrypoints'] + " network")
+            break
+            
+    
     for key, value in parsed_yaml.items():
         elem = None
         if "service" in value:

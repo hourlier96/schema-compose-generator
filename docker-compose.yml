@@ -1,11 +1,16 @@
 x-communication:
-    - vue-js >> mercure
+    - traefik >> nginx
+    - nginx >> vue-js
+    - nginx >> api
+    - nginx >> phpmyadmin
     - mercure >> vue-js
-    - mercure >> php 
-    - php >> mercure
-    - php >> mysql
-    - phpmyadmin >> mysql
+    - mercure >> api 
+    - vue-js >> api
+    - vue-js >> mercure
     - vue-js >> php
+    - api >> mercure
+    - api >> mysql
+    - phpmyadmin >> mysql
 
 version: '3.5'
 services:
@@ -45,7 +50,22 @@ services:
             - ./front/app/node_modules:/app/src/node_modules
         networks:
             - traefik_network
-    php:
+
+    mercure:
+        container_name: hub
+        restart: always
+        image: dunglas/mercure:latest
+        environment:
+            SERVER_NAME: ':80'
+            MERCURE_PUBLISHER_JWT_KEY: '!ChangeMe!'
+            MERCURE_SUBSCRIBER_JWT_KEY: '!ChangeMe!'
+        volumes:
+            - caddy_data:/data
+            - caddy_config:/config
+        networks:
+            - traefik_network
+    
+    api:
         container_name: reucopro_php
         restart: always
         build: ./php
@@ -66,19 +86,7 @@ services:
           - php
         networks:
             - traefik_network
-    mercure:
-        container_name: reucopro_mercure
-        restart: always
-        image: dunglas/mercure:latest
-        environment:
-            SERVER_NAME: ':80'
-            MERCURE_PUBLISHER_JWT_KEY: '!ChangeMe!'
-            MERCURE_SUBSCRIBER_JWT_KEY: '!ChangeMe!'
-        volumes:
-            - caddy_data:/data
-            - caddy_config:/config
-        networks:
-            - traefik_network
+    
     traefik:
         container_name: reucopro_traefik
         image: traefik:2.2

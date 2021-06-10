@@ -28,7 +28,8 @@ def find_pattern_in_service(service, compare):
     MATCH_DATA[service] = {}
     for key, data in compare.items():
         for item in data:
-            if item.lower() in service.lower():
+            if item.lower() in service.lower() or \
+               service.lower() in item.lower():
                 MATCH_DATA[service][key] = item
                 # print('Pattern found on service', service, ':', item, 'in', key)
 
@@ -50,7 +51,8 @@ def find_pattern_in_sub_key(service, sub_key, compare):
     """
     for key, data in compare.items():
         for item in data:
-            if item.lower() in sub_key.lower():
+            if item.lower() in sub_key.lower() or \
+               sub_key.lower() in item.lower():
                 MATCH_DATA[service][key] = item
                 # print('Pattern found on sub_key', sub_key, ':', item, 'in', key)
 
