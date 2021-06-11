@@ -7,26 +7,12 @@ x-communication:
     - mercure >> api 
     - vue-js >> api
     - vue-js >> mercure
-    - vue-js >> php
     - api >> mercure
     - api >> mysql
     - phpmyadmin >> mysql
 
 version: '3.5'
 services:
-    mysql:
-        container_name: reucopro_mysql
-        restart: always
-        build: ./mysql
-        ports:
-            - '3306'
-        expose:
-            - '3306'
-        volumes:
-            - './mysql/init:/docker-entrypoint-initdb.d'
-            - 'mysql:/var/lib/mysql'
-        networks:
-            - traefik_network
     phpmyadmin:
         container_name: reucopro_phpmyadmin
         build: ./phpmyadmin
@@ -79,11 +65,11 @@ services:
         container_name: reucopro_nginx
         restart: always
         depends_on:
-            - php
+            - api
         volumes:
             - './api_bo:/var/www/api_bo'
         links:
-          - php
+          - api
         networks:
             - traefik_network
     
@@ -92,6 +78,20 @@ services:
         image: traefik:2.2
         command: --docker --docker.exposedbydefault=false
         restart: always
+        networks:
+            - traefik_network
+
+    mysql:
+        container_name: reucopro_mysql
+        restart: always
+        build: ./mysql
+        ports:
+            - '3306'
+        expose:
+            - '3306'
+        volumes:
+            - './mysql/init:/docker-entrypoint-initdb.d'
+            - 'mysql:/var/lib/mysql'
         networks:
             - traefik_network
 volumes:

@@ -27,27 +27,26 @@ with Diagram("Docker-compose diagram", show=False):
 		elem_traefik = Traefik("traefik")
 
 		with Cluster("Traefik network"):
-			elem_mysql = Mysql("mysql")
-
 			elem_phpmyadmin = Php("phpmyadmin")
 
 			elem_vue_js = Vue("vue-js")
+
+			elem_mercure = SecurityHub("mercure")
 
 			elem_api = API("api")
 
 			elem_nginx = Nginx("nginx")
 
-			elem_mercure = SecurityHub("mercure")
+			elem_mysql = Mysql("mysql")
 
 	elem_phpmyadmin >> elem_mysql
 	elem_vue_js >> elem_api
 	elem_vue_js >> elem_mercure
+	elem_mercure >> elem_vue_js
+	elem_mercure >> elem_api
 	elem_api >> elem_mercure
 	elem_api >> elem_mysql
 	elem_nginx >> elem_vue_js
 	elem_nginx >> elem_api
 	elem_nginx >> elem_phpmyadmin
-	elem_nginx >> elem_mysql
-	elem_mercure >> elem_vue_js
-	elem_mercure >> elem_api
 	elem_traefik >> elem_nginx
